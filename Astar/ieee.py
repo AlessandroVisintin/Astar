@@ -1,5 +1,6 @@
 import re
 import requests
+import sys
 import time
 import pathlib
 from bs4 import BeautifulSoup
@@ -10,8 +11,7 @@ from threading import Thread
 URL = 'https://ieeexplore.ieee.org/document/{num}'
 PATTERN = r'xplGlobal\.document\.metadata=(.*);'
 OUT = 'out/Astar'
-THREADS = 10
-
+THREADS = int(sys.argv[1])
 
 def func(qin:Queue, qout:Queue) -> None:
 	"""
@@ -34,7 +34,7 @@ for t in ts:
 
 pathlib.Path(OUT).mkdir(parents=True, exist_ok=True)
 
-start, count = 0, 0
+start, count = int(sys.argv[2]), 0
 while start < 10**7:
 	
 	if qs[0].qsize() < 2 * THREADS:

@@ -19,7 +19,6 @@ def func(qin:Queue, qout:Queue) -> None:
 
 	while True:
 		i =  qin.get()
-		print(i)
 		if i is None:
 			break
 		try:

@@ -37,10 +37,11 @@ pathlib.Path(OUT).mkdir(parents=True, exist_ok=True)
 
 start, count = 0, 0
 while start < 10**7:
-
-	for _ in range(THREADS):
-		qs[0].put(start)
-		start += 1
+	
+	if qs[0].qsize() < 2 * THREADS:
+		for _ in range(THREADS):
+			qs[0].put(start)
+			start += 1
 	
 	with open(f'{OUT}/ieee.txt', 'a+', encoding='utf-8') as f:
 		for _ in range(THREADS):

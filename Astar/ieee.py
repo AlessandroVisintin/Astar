@@ -1,6 +1,7 @@
 import re
 import requests
 import time
+import pathlib
 from bs4 import BeautifulSoup
 from queue import Queue
 from threading import Thread
@@ -31,6 +32,8 @@ qs = [Queue(), Queue()]
 ts = [Thread(target=func, args=(qs[0], qs[1])) for _ in range(THREADS)]
 for t in ts:
 	t.start()
+
+pathlib.Path(OUT).mkdir(parents=True, exist_ok=True)
 
 start, count = 0, 0
 while start < 10**7:
